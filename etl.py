@@ -4,7 +4,6 @@ from curses import keyname
 import psycopg2
 import sql_queries as sql
 import credentials
-import pandas as pd
 import test_queries as tc
 
 # Drop table before do somethings
@@ -135,6 +134,16 @@ def main():
     # Length data field check
     check_field_len(cur)
 
+    # Sample query test
+    cur.execute("""
+        SELECT ds.state_code, agg.total_cases, agg.total_deaths
+        FROM dim_states as ds
+        JOIN agg_covid_state as agg
+        ON ds.state_code = agg.state_code
+        WHERE ds.state_code = "GA";  
+    """)
+    sample = cur.fetchall()
+    print(sample)
     conn.close()
 
 
