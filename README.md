@@ -1,6 +1,6 @@
 # Aggregate Covid cases and deaths by state in US with poppulation.
 ### Data Engineering Capstone Project
-cafaa
+
 #### Project Summary
 --describe your project at a high level--
 
