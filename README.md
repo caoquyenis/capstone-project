@@ -93,11 +93,20 @@ Run Quality Checks
 
 ##### stag_demographic table
 
-|**Field name**   |**Datatype**|Field Length   |Constraint   |Description     |
-|-----------------|------------|---------------|-------------|----------------|
-|city             |varchart   |256            |NULLABLE     |City in stage   |
-|   |   |   |   |   |
-|   |   |   |   |   |
+|Field name            |Datatype    |Field Length   |Constraint   |Description                             |
+|----------------------|------------|---------------|-------------|----------------------------------------|
+|city                  |varchar     |256            |NULLABLE     |City in stage                           |
+|state                 |varchar     |256            |NULLABLE     |State in US                             |
+|median_age            |decimal     |               |NULLABLE     |Median Age                              |
+|male_population       |int8        |               |NULLABLE     |Male population                         |
+|female_population     |int8        |               |NULLABLE     |Female population                       |
+|total_population      |int8        |               |NULLABLE     |Total population                        |
+|num_veterans          |int8        |               |NULLABLE     |Number of veterans                      |
+|foreign_born          |int8        |               |NULLABLE     |Foreign born                            |
+|avg_household_size    |int8        |               |NULLABLE     |Average of household size               |
+|state_code            |varchar     |256            |NULLABLE     |State code, FK to dim_states table      |
+|races                 |varchar     |256            |NULLABLE     |Races                                   |
+|count                 |int8        |               |NULLABLE     |Count                                   |
 * city: varchar nullable
 * state: varchar nullable
 * median_age: numeric nullable
