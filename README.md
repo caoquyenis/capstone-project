@@ -91,7 +91,7 @@ Run Quality Checks
 
 #### 4.3 Data dictionary
 
-##### stag_demographic table
+##### stagging demographic table
 
 |Field name            |Datatype    |Field Length   |Constraint   |Description                             |
 |----------------------|------------|---------------|-------------|----------------------------------------|
@@ -107,69 +107,46 @@ Run Quality Checks
 |state_code            |varchar     |256            |NULLABLE     |State code, FK to dim_states table      |
 |races                 |varchar     |256            |NULLABLE     |Races                                   |
 |count                 |int8        |               |NULLABLE     |Count                                   |
-* city: varchar nullable
-* state: varchar nullable
-* median_age: numeric nullable
-* male_population: int4 nullable
-* female_population: int8 nullable
-* total_population: int8 nullable
-* number_veterans: int8 nullable
-* foreign_born: int8 nullable
-* household_size: numeric nullable
-* state_code: varchar nullable
-* race: varchar nullable
-* count: int8 nullable
 
-##### staging_aircodes. Load from airport-codes_csv.csv on S3 bucket
-* ident	varchar	nullable
-* type	varchar	nullable
-* name	varchar	nullable
-* elevation_ft	int4	nullable
-* continent	varchar	nullable
-* iso_country	varchar	nullable
-* iso_region	varchar	nullable
-* municipality	varchar	nullable
-* gps_code	varchar	nullable
-* iata_code	varchar	nullable
-* local_code	varchar	nullable
-* coordinates	varchar	nullable
 
-##### cities_airport. Join staging_demographic with staging_aircodes
-* cities_air_id	int4	not null
-* state_code	varchar	nullable
-* city	varchar	nullable
-* state	varchar	nullable
-* median_age	numeric	nullable
-* male_population	int4	nullable
-* female_population	int4	nullable
-* total_population	int4	nullable
-* number_veterans	int4	nullable
-* foreign_born	int4	nullable
-* household_size	numeric	nullable
-* race	varchar	nullable
-* count	int4	nullable
-* ident	varchar	nullable
-* type	varchar	nullable
-* name	varchar	nullable
+##### stgging covid_us table
 
-##### airports. Select from staging_demographic
-* airports_id	int4	not null
-* type	varchar	nullable
-* name	varchar	nullable
-* iso_region	varchar	nullable
-* municipality	varchar	nullable
-* gps_code	varchar	nullable
+|Field name            |Datatype    |Field Length   |Constraint   |Description                               |
+|----------------------|------------|---------------|-------------|------------------------------------------|
+|fips                  |varchar     |256            |NULLABLE     |Fips                                      |
+|county                |varchar     |256            |NULLABLE     |County                                    |
+|state                 |varchar     |256            |NULLABLE     |State                                     |
+|lat                   |decimal     |               |NULLABLE     |Latitude. Not important                   |
+|long                  |decimal     |               |NULLABLE     |Longitude. Not important                  |
+|date                  |varchar     |16             |NULLABLE     |Date.                                     |
+|cases                 |int8        |               |NULLABLE     |Covid cases. FK to agg_covid_state table  |
+|state_code            |varchar     |256            |NULLABLE     |State code. FK to agg_covid_state table   |
+|deaths                |int8        |               |NULLABLE     |Deaths. FK to agg_covid_state table       |
 
-##### cities. Select from staging_demographic
-* cities_id	int4	not null
-* state_code	varchar	nullable
-* state	varchar	nullable
-* city	varchar	nullable
 
-##### races. Select from staging_demographic
-* race_id	int4	not null
-* race	varchar	nullable
-* count	int4	nullable
+##### Aggregate Covid by state table
+
+|Field name              |Datatype    |Field Length   |Constraint   |Description                               |
+|------------------------|------------|---------------|-------------|------------------------------------------|
+|id                      |identity    |               |PRIMARY KEY  |Id                                        |
+|state_code              |varchar     |256            |NOT NULL     |State code                                |
+|state                   |varchar     |256            |NULLABLE     |State                                     |
+|total_male_population   |int8        |               |NOT NULL     |Total male population                     |
+|total_female_population |int8        |               |NOT NULL     |Total female population                   |
+|state_population        |int8        |               |NOT NULL     |State population                          |
+|total_veterans          |int8        |               |NULLABLE     |Total veterans                            |
+|total_cases             |int8        |               |NOT NULL     |Total covid cases                         |
+|total_deaths            |int8        |               |NOT NULL     |Total deaths                              |
+
+
+##### States dimension table
+
+|Field name              |Datatype    |Field Length   |Constraint   |Description                               |
+|------------------------|------------|---------------|-------------|------------------------------------------|
+|state_id                |identity    |               |PRIMARY KEY  |State Id                                  |
+|state_code              |varchar     |32             |NOT NULL     |State code                                |
+|state                   |varchar     |256            |NULLABLE     |State                                     |
+
 
 #### Step 5: Complete Project Write Up
 

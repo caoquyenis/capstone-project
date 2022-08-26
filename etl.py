@@ -1,6 +1,5 @@
 from cgitb import reset
 from curses import keyname
-from numpy import empty
 #import configparser
 import psycopg2
 import sql_queries as sql
