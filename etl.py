@@ -138,11 +138,10 @@ def main():
     cur.execute("""
         SELECT ds.state_code, agg.total_cases, agg.total_deaths
         FROM dim_states as ds
-        JOIN agg_covid_state as agg
-        ON ds.state_code = agg.state_code
-        WHERE ds.state_code = "GA";  
+        LEFT JOIN agg_covid_state as agg
+        ON agg.state_code = ds.state_code;  
     """)
-    sample = cur.fetchall()
+    sample = cur.fetchmany(5)
     print(sample)
     conn.close()
 

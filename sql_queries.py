@@ -61,8 +61,8 @@ dim_states_table_create = ("""
 
 # COPY from local csv to redshift
 stg_demographic_copy = ("""
-    COPY stg_demographic FROM 's3://gencapstone/us-cities-demographics.csv'
-    iam_role 'arn:aws:iam::854296470795:role/redshiftRole'
+    COPY stg_demographic FROM 's3://quyennc2/us-cities-demographics.csv'
+    iam_role 'arn:aws:iam::679278695403:role/myredshift'
     CSV
     delimiter ';'
     IGNOREHEADER 1
@@ -70,8 +70,8 @@ stg_demographic_copy = ("""
 """)
  
 stg_covid_us_copy = ("""
-    COPY stg_covid_us FROM 's3://gencapstone/covid_us_county.csv'
-    iam_role 'arn:aws:iam::854296470795:role/redshiftRole'
+    COPY stg_covid_us FROM 's3://quyennc2/covid_us_county.csv'
+    iam_role 'arn:aws:iam::679278695403:role/myredshift'
     CSV
     IGNOREHEADER 1
     compupdate off region 'us-east-1';
