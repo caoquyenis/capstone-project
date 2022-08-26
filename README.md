@@ -18,7 +18,8 @@ The project follows the follow steps:
 #### Scope 
 
 * I would like to see if the airport is ennough for the US city's population. The stakeholder can decide to invest more budget if that airport is not enough.
-* Use redshift to store structered data from raw source. Then, we can analysis.
+* Use redshift to store structered data from ast import JoinedStr
+from raw source. Then, we can analysis.
 
 #### Describe and Gather Data 
 * In this project, I will use 2 dataset: us-cities-demograpics & airport-codes. 2 files were upload on S3 bucket.
@@ -88,9 +89,15 @@ Explain the data quality checks you'll perform to ensure the pipeline ran as exp
  
 Run Quality Checks
 
-#### 4.3 Data dictionary 
-Create a data dictionary for your data model. For each field, provide a brief description of what the data is and where it came from. You can include the data dictionary in the notebook or in a separate file.
-##### staging_demographic. Load from us-cities-demographic.csv on S3 bucket
+#### 4.3 Data dictionary
+
+##### stag_demographic table
+
+|**Field name**   |**Datatype**|Field Length   |Constraint   |Description     |
+|-----------------|------------|---------------|-------------|----------------|
+|city             |varchart   |256            |NULLABLE     |City in stage   |
+|   |   |   |   |   |
+|   |   |   |   |   |
 * city: varchar nullable
 * state: varchar nullable
 * median_age: numeric nullable
@@ -156,15 +163,33 @@ Create a data dictionary for your data model. For each field, provide a brief de
 * count	int4	nullable
 
 #### Step 5: Complete Project Write Up
-##### Clearly state the rationale for the choice of tools and technologies for the project.
-* Use redshift to store face and dimension tables. Source datasets were uploaded on S3 bucket.
-##### Propose how often the data should be updated and why.
-* This data type is not frequency updated. Because of the cost to collect data. So I suppose the data was updated yearly
-##### Write a description of how you would approach the problem differently under the following scenarios:
- * The data was increased by 100x. => Not problem if using redshift. Or I can use spark to write to S3 parquet. 
- * The data populates a dashboard that must be updated on a daily basis by 7am every day. => Use automation Airflow then set the schedule to run task every
- * The database needed to be accessed by 100+ people.
 
+##### Clearly state the rationale for the choice of tools and technologies for the project.
+
+* In this project, I use **Star Scheme** to aggregate data and present dimension data. Because of:
+1. It is simple to understand in this project type
+2. No many Joins
+
+* Use redshift to store face and dimension tables. Source datasets were uploaded on S3 bucket.
+* Use S3 to store source csv due to S3 supports COPY command to Redshift cluster very fast. In case scale up, I can write to S3 to store parquet file.
+* Redshift is a popular data warehouse database that can handle data on an exabytes scale. Redshift is able to execute on a large volume of data at lightning speed.
+
+##### Propose how often the data should be updated and why.
+
+This data type is not frequency updated. Because of the cost to collect data. So I suppose the data was updated yearly.
+
+##### Write a description of how you would approach the problem differently under the following scenarios:
+
+The data was increased by 100x.
+* Not problem if using redshift. Or I can use spark to write to S3 parquet. 
+
+The data populates a dashboard that must be updated on a daily basis by 7am every day.
+* Use automation Airflow then set the schedule to run task every. Another option is combination of Airflow + Apache + Livy and EMR.
+
+The database needed to be accessed by 100+ people.
+* I consider to choose **NO SQL** database run by AWS.
+* Elastic Load Balancing
+* Try to Amazon ElastiCache
 
 
 
