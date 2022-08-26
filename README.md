@@ -177,7 +177,9 @@ The database needed to be accessed by 100+ people.
 * Elastic Load Balancing
 * Try to Amazon ElastiCache
 
+# Sample test result
 
+[('MD', 18197, 312), ('PA', 17940, 342), ('AK', 2991, 15), ('AR', 4905, 71), ('CT', 34186, 698)]
 
 
 # Project introduction
