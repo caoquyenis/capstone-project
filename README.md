@@ -178,7 +178,11 @@ The database needed to be accessed by 100+ people.
 * Try to Amazon ElastiCache
 
 # Sample test result
-
+stg_demographic have [(2891,)] records. Pass test
+stg_covid_us have [(3154848,)] records. Pass test
+agg_covid_state have [(47,)] records. Pass test
+dim_states have [(49,)] records. Pass test
+state_code lenght Pass test
 [('MD', 18197, 312), ('PA', 17940, 342), ('AK', 2991, 15), ('AR', 4905, 71), ('CT', 34186, 698)]
 
 
